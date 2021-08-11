@@ -4,8 +4,8 @@ import Router from 'vue-router'
 // 연결할 컴포넌트 import
 import HelloWorld from "@/components/HelloWorld.vue"
 import Example from '@/components/Example'
-import BoardList from '@/components/BoardList'
-import BoardList2 from '@/components/BoardList2'
+import List from '@/components/List'
+import List2 from '@/components/List2'
 
 // 필수
 Vue.use(Router)
@@ -25,13 +25,13 @@ export default new Router({
         },
         {
             path: "/list",
-            name: "BoardList",
-            component: BoardList
+            name: "List",
+            component: List
         },
         {
             path: "/list2",
-            name: "BoardList2",
-            component: BoardList2
+            name: "List2",
+            component: List2
         },
     ]
 })

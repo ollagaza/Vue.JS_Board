@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'BoardList',
+  name: 'List2',
   data () {
     return {
       msg: '리스트 샘플',

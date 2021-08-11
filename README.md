@@ -1,4 +1,4 @@
-# untitled
+# Vue.JS Board
 
 ## Project setup
 ```
@@ -17,7 +17,7 @@ npm run build
 
 ### Lints and fixes files
 ```
-npm run lint222
+npm run lint
 ```
 
 ### Customize configuration

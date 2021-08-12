@@ -43,7 +43,6 @@ export default {
       job_code:'FARM'
       ,subject:''
       ,content:''
-      ,id:'admin'
       ,form:'' //form 전송 데이터
     }
   }
@@ -54,16 +53,32 @@ export default {
     }
     ,fnAddProc() { //등록 프로세스
       if(!this.subject) { //제목이 없다면 값을 입력하라고 알려준다.
-        alert("제목을 입력해 주세요");
+        alert("작업명을 입력해 주세요");
         this.$refs.subject.focus(); //방식으로 선택자를 찾는다.
         return;
       }
-
+      if(!this.content) { //제목이 없다면 값을 입력하라고 알려준다.
+        alert("작업내용을 입력해 주세요");
+        this.$refs.content.focus(); //방식으로 선택자를 찾는다.
+        return;
+      }
+      if(!this.worker) { //제목이 없다면 값을 입력하라고 알려준다.
+        alert("작업자를 입력해 주세요");
+        this.$refs.worker.focus(); //방식으로 선택자를 찾는다.
+        return;
+      }
+      if(!this.manager) { //제목이 없다면 값을 입력하라고 알려준다.
+        alert("담당자를 입력해 주세요");
+        this.$refs.manager.focus(); //방식으로 선택자를 찾는다.
+        return;
+      }
+      //alert(this.idx);
       this.form = { //backend로 전송될 POST 데이터
         job_code:this.job_code
         ,subject:this.subject
         ,content:this.content
-        ,id:this.id
+        ,worker:this.worker
+        ,manager:this.manager
       }
 
       this.$axios.post('http://localhost:3000/api/write',this.form)

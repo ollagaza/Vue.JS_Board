@@ -20,7 +20,7 @@
           <th>작업명</th>
           <th>작업자</th>
           <th>담당자</th>
-          <th>날짜</th>
+          <th>등록일</th>
         </tr>
         <tr v-for="(row, idx) in list" :key="idx">
           <td>{{no-idx}}</td>

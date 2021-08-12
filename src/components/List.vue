@@ -12,18 +12,21 @@
           <col width="6%" />
           <col width="*" />
           <col width="10%" />
+          <col width="10%" />
           <col width="15%" />
         </colgroup>
         <tr>
-          <th>no</th>
-          <th>제목</th>
-          <th>아이디</th>
+          <th>No.</th>
+          <th>작업명</th>
+          <th>작업자</th>
+          <th>담당자</th>
           <th>날짜</th>
         </tr>
         <tr v-for="(row, idx) in list" :key="idx">
           <td>{{no-idx}}</td>
-          <td class="txt_left"><a href="javascript:;">{{row.title}}</a></td>
-          <td>{{row.name}}</td>
+          <td class="txt_left"><a href="javascript:;" @click="fnView(`${row.job_code}`,`${row.idx}`)">{{row.subject}}</a></td>
+          <td>{{row.worker}}</td>
+          <td>{{row.manager}}</td>
           <td>{{row.regdate.substring(0,10)}}</td>
         </tr>
         <tr v-if="list.length == 0">
@@ -58,7 +61,7 @@ export default {
   data() { //변수생성
     return{
       body:'' //리스트 페이지 데이터전송
-      ,board_code:'news' //게시판코드
+      ,job_code:'' //Job코드
       ,list:'' //리스트 데이터
       ,no:'' //게시판 숫자처리
       ,paging:'' //페이징 데이터
@@ -80,11 +83,11 @@ export default {
   , methods:{
     fnGetList() { //데이터 가져오기 함수
       this.body = { // 데이터 전송
-        board_code:this.board_code
+        job_code:this.job_code
         ,keyword:this.keyword
         ,page:this.page
       }
-      this.$axios.get('http://localhost:3000/listAPI',{params:this.body})
+      this.$axios.get('http://localhost:3000/api/list',{params:this.body})
           .then((res)=>{
             if(res.data.success) {
               this.list = res.data.list;
@@ -97,12 +100,17 @@ export default {
           .catch((err)=>{
             console.log(err);
           })
-    }
-    ,fnAdd() {
+    },
+    fnAdd() {
       this.$router.push("./write");
-    }
-    ,getList() {
-      this.$axios.get("http://localhost:3000/listAPI")
+    },
+    fnView(job_code, idx) {
+      this.body.job_code = job_code;
+      this.body.idx = idx;
+      this.$router.push({path:'./view',query:this.body}); //추가한 상세페이지 라우터
+    },
+    getList() {
+      this.$axios.get("http://localhost:3000/api/list")
           .then((res)=>{
             console.log(res);
           })

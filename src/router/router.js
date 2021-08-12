@@ -6,6 +6,8 @@ import HelloWorld from "@/components/HelloWorld.vue"
 import Example from '@/components/Example'
 import List from '@/components/List'
 import List2 from '@/components/List2'
+import Write from '@/components/Write'
+import View from '@/components/View'
 
 // 필수
 Vue.use(Router)
@@ -32,6 +34,16 @@ export default new Router({
             path: "/list2",
             name: "List2",
             component: List2
+        },
+        {
+            path: "/write",
+            name: "Write",
+            component: Write
+        },
+        {
+            path: "/view",
+            name: "View",
+            component: View
         },
     ]
 })

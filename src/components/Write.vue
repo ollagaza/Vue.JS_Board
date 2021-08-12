@@ -25,6 +25,14 @@
             <th>담당자</th>
             <td><input type="text" v-model="manager" ref="manager" /></td>
           </tr>
+          <tr>
+            <th>파일</th>
+            <td><input ref="image" id="input"
+                       type="file" name="image" accept="image/*" multiple="multiple"
+                       class="hidden"
+                       @change="uploadImage()"></td>
+          </tr>
+
         </table>
       </form>
     </div>
@@ -50,8 +58,8 @@ export default {
     fnList(){ //리스트 화면으로 이동 함수
       this.$router.push({path:'./list',query:this.body});
 
-    }
-    ,fnAddProc() { //등록 프로세스
+    },
+    fnAddProc() { //등록 프로세스
       if(!this.subject) { //제목이 없다면 값을 입력하라고 알려준다.
         alert("작업명을 입력해 주세요");
         this.$refs.subject.focus(); //방식으로 선택자를 찾는다.
@@ -93,7 +101,22 @@ export default {
           .catch((err)=>{
             console.log(err);
           })
+    },
+    uploadImage: function() {
+      let form = new FormData()
+      let image = this.$refs['image'].files[0]
 
+      form.append('image', image)
+
+      this.$axios.post('http://localhost:3000/api/upload', form, {
+        header: { 'Content-Type': 'multipart/form-data' }
+      }).then( ({data}) => {
+        this.images = data
+      })
+          .catch( err => console.log(err))
+    },
+    clickInputTag: function() {
+      this.$refs['image'].click()
     }
   }
 }

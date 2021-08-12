@@ -30,7 +30,7 @@
           <td>{{row.regdate.substring(0,10)}}</td>
         </tr>
         <tr v-if="list.length == 0">
-          <td colspan="4">데이터가 없습니다.</td>
+          <td colspan="4">작업목록이 없습니다.</td>
         </tr>
       </table>
     </div>
@@ -94,7 +94,8 @@ export default {
               this.paging = res.data.paging;
               this.no = this.paging.totalCount - ((this.paging.page-1) * this.paging.ipp);
             } else {
-              alert("실행중 실패했습니다.\n다시 이용해 주세요.");
+              console.log("작업리스트를 가지고 오는데 실패했습니다.");
+              //alert("실행중 실패했습니다.\n다시 이용해 주세요.");
             }
           })
           .catch((err)=>{
@@ -119,7 +120,7 @@ export default {
           })
     }
     ,fnSearch() { //검색
-      this.paging.page = 1;
+      this.page = 1;
       this.fnGetList();
     }
     , fnPage(n) {//페이징 이

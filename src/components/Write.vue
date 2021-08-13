@@ -81,6 +81,23 @@ export default {
         return;
       }
       //alert(this.idx);
+      let form = new FormData();
+      let image = this.$refs['image'].files[0]
+
+      //alert(this.$refs['image'].files.length);
+
+      for (let i = 0; i < this.$refs['image'].files.length; i++) {
+        image = this.$refs['image'].files[i];
+        form.append('image', image);
+      }
+      //form.append('image', image)
+
+      form.append('job_code', this.job_code);
+      form.append('subject', this.subject);
+      form.append('content', this.content);
+      form.append('worker', this.worker);
+      form.append('manager', this.manager);
+
       this.form = { //backend로 전송될 POST 데이터
         job_code:this.job_code
         ,subject:this.subject
@@ -89,24 +106,32 @@ export default {
         ,manager:this.manager
       }
 
-      this.$axios.post('http://localhost:3000/api/write',this.form)
-          .then((res)=>{
-            if(res.data.success) {
-              alert('등록되었습니다.');
-              this.fnList();
-            } else {
-              alert("실행중 실패했습니다.\n다시 이용해 주세요");
-            }
-          })
-          .catch((err)=>{
-            console.log(err);
-          })
+      this.$axios.post('http://localhost:3000/api/write',form, {
+        header: { 'Content-Type': 'multipart/form-data' }
+      })
+      .then((res)=>{
+        if(res.data.success) {
+          alert('등록되었습니다.');
+          this.fnList();
+        } else {
+          alert("실행중 실패했습니다.\n다시 이용해 주세요");
+        }
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
     },
     uploadImage: function() {
       let form = new FormData()
       let image = this.$refs['image'].files[0]
 
-      form.append('image', image)
+      //alert(this.$refs['image'].files.length);
+
+      for (let i = 0; i < this.$refs['image'].files.length; i++) {
+        image = this.$refs['image'].files[i];
+        form.append('image', image);
+      }
+      //form.append('image', image)
 
       this.$axios.post('http://localhost:3000/api/upload', form, {
         header: { 'Content-Type': 'multipart/form-data' }
